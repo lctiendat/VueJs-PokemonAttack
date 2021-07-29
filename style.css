@@ -1,0 +1,10 @@
+.hp{
+  height: 50px;
+  background: white;
+  border: 1px solid black;
+  background: red;
+  transition: all 1s ease;
+}
+.hp span{
+  line-height: 50px; color: white;
+}
