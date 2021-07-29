@@ -1,10 +1,52 @@
-.hp{
+.hp {
   height: 50px;
   background: white;
   border: 1px solid black;
   background: red;
   transition: all 1s ease;
 }
-.hp span{
-  line-height: 50px; color: white;
+.hp span {
+  line-height: 50px;
+  color: white;
+}
+body {
+  background-image: url("images/bg.png");
+  background-size: cover;
+  position: relative;
+}
+.controls img {
+  transition: transform 0.2s;
+}
+.controls img:hover {
+  /* background: red; */
+  border: 0;
+  height: 100%;
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(2);
+}
+button:focus {
+  outline: 0 !important;
+}
+#resultSatoshi,
+#resultPikachu {
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  font-style: italic;
+  transition: all 1s ease-in-out;
+}
+@media only screen and (max-width: 700px) {
+    .controls{
+      height: 100px !important;
+    }
+    .controls div.col-md-8,div.col-md-4{
+      line-height: 100px !important;
+    }
+    .controls img{
+      width: 100%;
+    }
+    #app div.row:first-child img:first-child{
+      height: 50px !important ;
+    }
 }

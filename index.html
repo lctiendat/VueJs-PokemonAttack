@@ -14,23 +14,25 @@
     />
   </head>
   <body>
-    <div id="app">
+    <div id="app" class="mt-3">
       <div class="container">
-        <div class="row text-center">
-          <div class="col-md-6">
+        <div class="row text-center" v-if="gameIsRunning">
+          <div class="col-md-6 col-6">
             <h3 class="text-uppeercase">Satoshi</h3>
-            <img src="Ash_SS.png" width="40%" height="300px" alt="" />
-            <div class="progress" style="height: 50px">
+            <img src="./images/Ash_SS.png" width="40%" height="300px" alt="" />
+            <span id="resultSatoshi"></span>
+            <div class="progress" style="height: 50px; margin-top: 20px">
               <div
                 class="progress-bar bg-danger"
                 :style="{width:satoshiHeight +'%'}"
               ></div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 col-6">
             <h3 class="text-uppeercase">Pikachu</h3>
-            <img src="pikachu.jpeg" width="50%%" alt="" />
-            <div class="progress" style="height: 50px; margin-top: 35px">
+            <span id="resultPikachu"> </span
+            ><img src="./images/pikachu.png" width="50%" alt="" />
+            <div class="progress" style="height: 50px; margin-top: 10px">
               <div
                 class="progress-bar bg-danger"
                 :style="{width:pikachuHeight +'%'}"
@@ -38,54 +40,97 @@
             </div>
           </div>
         </div>
-        <div class="row text-center shadow p-3 border" v-if="!gameIsRunning">
+
+        <div
+          v-if="gameIsRunning"
+          class="mt-2 text-white ml-2"
+          style="position: absolute; top: 0; width: 100%; left: 0"
+        >
+          <h5>
+            <img src="./images/coin.png" width="3%" alt="" /> {{cash}}
+            <button
+              class="text-white bg-transparent border-0"
+              @click="addCoin"
+              style="font-weight: bold"
+            >
+              +
+            </button>
+          </h5>
+          <h5>
+            <img src="./images/shild.png" width="3%" alt="" /> {{ defSatoshi }}
+          </h5>
+        </div>
+
+        <div
+          class="row text-center"
+          style="margin-top: 30%"
+          v-if="!gameIsRunning"
+        >
           <div class="col-md-12">
-            <button class="text-uppercase btn btn-success" @click="startGame">
-              start new game
+            <button
+              class="text-uppercase bg-transparent border-0"
+              @click="startGame"
+            >
+              <img src="./images/start.png" width="50%" alt="" />
             </button>
           </div>
         </div>
-        <div class="row text-center mt-5 shadow p-3 border" v-else>
-          <div class="col-md-12">
-            <button
-              class="text-uppercase btn btn-danger"
-              id="attack"
-              @click="attack"
-            >
-              attack
-            </button>
-            <button
-              class="text-uppercase btn btn-warning"
-              @click="specialAttack"
-              id="specialAttack"
-            >
-              special attack
-            </button>
-            <button
-              class="text-uppercase btn btn-success"
-              @click="heal"
-              id="heal"
-            >
-              heal
-            </button>
-            <button
-              class="text-uppercase text-dark btn border"
-              id="giveup"
-              @click="giveup"
-            >
-              give up
-            </button>
+        <div
+          class="row text-center mt-3 shadow border bg-white controls"
+          style="height: 200px;"
+          v-else
+        >
+          <div class="col-md-8 col-7" style="line-height: 200px">
+            <div class="row">
+              <div class="col-md-3 col-3">
+                <button
+                  class="text-uppercase border-0 bg-transparent"
+                  id="attack"
+                  @click="attack"
+                >
+                  <img src="./images/attack.png" alt="" width="40%" />
+                </button>
+              </div>
+              <div class="col-md-3 col-3">
+                <button
+                  class="text-uppercase bg-transparent border-0"
+                  @click="specialAttack"
+                  id="specialAttack"
+                >
+                  <img src="./images/specialAttack.png" alt="" width="40%" />
+                </button>
+              </div>
+              <div class="col-md-3 col-3">
+                <button
+                  class="text-uppercase bg-transparent border-0"
+                  @click="heal"
+                  id="heal"
+                >
+                  <img src="./images/heal.png" alt="" width="40%" />
+                </button>
+              </div>
+              <div class="col-md-3 col-3">
+                <button
+                  class="text-uppercase bg-transparent border-0"
+                  id="giveup"
+                  @click="giveup"
+                >
+                  <img src="./images/giveup.png" alt="" width="40%" />
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row log border mt-3 text-center" v-if="isLogs">
-          <div class="col-md-7 mx-auto p-3">
-            <p
-              v-for="(item, index) in logsGame"
-              :key="index"
-              class="text-danger"
-            >
-              {{item}}
-            </p>
+          <div class="col-md-4 col-5" style="line-height: 200px">
+            <div class="row">
+              <div class="col-md-6 col-6" v-for="(item, index) in items" :key="index">
+                <button
+                  class="text-uppercase bg-transparent border-0"
+                  @click="buyItem(index)"
+                >
+                  <img :src="item.thumbail" alt="" width="40%" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
